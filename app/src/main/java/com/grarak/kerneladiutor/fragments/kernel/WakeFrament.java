@@ -83,6 +83,12 @@ public class WakeFrament extends RecyclerViewFragment {
         if (Misc.hasPowerKeySuspend()) {
             powerKeySuspendInit(items);
         }
+        if (Misc.hasKeyPowerModeSMDK4412()) {
+            KeyPowerModeSMDK4412Init(items);
+        }
+        if (Misc.hasChargingModeSMDK4412()) {
+            ChargingModeSMDK4412Init(items);
+        }
         areaInit(items);
         vibrationInit(items);
     }
@@ -286,6 +292,36 @@ public class WakeFrament extends RecyclerViewFragment {
         });
 
         items.add(powerKeySuspend);
+    }
+
+    private void KeyPowerModeSMDK4412Init(List<RecyclerViewItem> items) {
+        SwitchView KeyPowerModeSMDK4412 = new SwitchView();
+        KeyPowerModeSMDK4412.setTitle(getString(R.string.key_power_mode_smdk4412));
+        KeyPowerModeSMDK4412.setSummary(getString(R.string.key_power_mode_smdk4412_summary));
+        KeyPowerModeSMDK4412.setChecked(Misc.isKeyPowerModeSMDK4412Enabled());
+        KeyPowerModeSMDK4412.addOnSwitchListener(new SwitchView.OnSwitchListener() {
+            @Override
+            public void onChanged(SwitchView switchView, boolean isChecked) {
+                Misc.enableKeyPowerModeSMDK4412(isChecked, getActivity());
+            }
+        });
+
+        items.add(KeyPowerModeSMDK4412);
+    }
+
+    private void ChargingModeSMDK4412Init(List<RecyclerViewItem> items) {
+        SwitchView ChargingModeSMDK4412 = new SwitchView();
+        ChargingModeSMDK4412.setTitle(getString(R.string.charging_mode_smdk4412));
+        ChargingModeSMDK4412.setSummary(getString(R.string.charging_mode_smdk4412_summary));
+        ChargingModeSMDK4412.setChecked(Misc.isChargingModeSMDK4412Enabled());
+        ChargingModeSMDK4412.addOnSwitchListener(new SwitchView.OnSwitchListener() {
+            @Override
+            public void onChanged(SwitchView switchView, boolean isChecked) {
+                Misc.enableChargingModeSMDK4412(isChecked, getActivity());
+            }
+        });
+
+        items.add(ChargingModeSMDK4412);
     }
 
     private void areaInit(List<RecyclerViewItem> items) {
