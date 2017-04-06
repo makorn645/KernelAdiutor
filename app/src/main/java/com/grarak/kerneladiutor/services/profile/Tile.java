@@ -48,7 +48,7 @@ public class Tile extends BroadcastReceiver {
 
     private static final String NAME = "name";
     private static final String COMMANDS = "commands";
-    private static final String ACTION_TOGGLE_STATE = "com.grarak.kerneladiutor.action.ACTION_TOGGLE_STATE";
+    private static final String ACTION_TOGGLE_STATE = "com.kerneladiutor.smdk4412.action.ACTION_TOGGLE_STATE";
 
     @Override
     public void onReceive(Context context, Intent intent) {
