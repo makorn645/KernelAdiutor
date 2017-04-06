@@ -45,6 +45,8 @@ public class Misc {
 
     private static final String WAKE_TIMEOUT = "/sys/android_touch/wake_timeout";
     private static final String WAKE_TIMEOUT_2 = "/sys/android_touch2/wake_timeout";
+    private static final String T2W_TIMEOUT_SMDK4412 = "/sys/devices/virtual/misc/touchwake/delay";
+	private static final String T2W_CHARGE_TIMEOUT_SMDK4412 = "/sys/devices/virtual/misc/touchwake/charging_delay";
 
     private static final String POWER_KEY_SUSPEND = "/sys/module/qpnp_power_on/parameters/pwrkey_suspend";
     private static final String KEYPOWER_MODE_SMDK4412 = "/sys/devices/virtual/misc/touchwake/keypower_mode";
@@ -62,6 +64,8 @@ public class Misc {
     private static final List<String> sPocketFiles = new ArrayList<>();
 
     private static final HashMap<String, Integer> sTimeoutFiles = new HashMap<>();
+
+    private static final HashMap<String, Integer> sChargeTimeoutFiles = new HashMap<>();
 
     static {
         sScreenWakeOptionsMenu.add(R.string.disabled);
@@ -89,12 +93,18 @@ public class Misc {
     static {
         sTimeoutFiles.put(WAKE_TIMEOUT, 30);
         sTimeoutFiles.put(WAKE_TIMEOUT_2, 10);
+        sTimeoutFiles.put(T2W_TIMEOUT_SMDK4412, 60);
+    }
+
+	static {
+        sChargeTimeoutFiles.put(T2W_CHARGE_TIMEOUT_SMDK4412, 60);
     }
 
     private static String WAKE;
     private static String CAMERA;
     private static String POCKET;
     private static String TIMEOUT;
+    private static String CHARGETIMEOUT;
 
     public static void setVibVibration(int value, Context context) {
         run(Control.write(String.valueOf(value), VIB_VIBRATION), VIB_VIBRATION, context);
@@ -160,12 +170,24 @@ public class Misc {
         run(Control.write(String.valueOf(value), TIMEOUT), TIMEOUT, context);
     }
 
+    public static void setChargeTimeout(int value, Context context) {
+        run(Control.write(String.valueOf(value), CHARGETIMEOUT), CHARGETIMEOUT, context);
+    }
+
     public static int getTimeout() {
         return Utils.strToInt(Utils.readFile(TIMEOUT));
     }
 
+    public static int getChargeTimeout() {
+        return Utils.strToInt(Utils.readFile(CHARGETIMEOUT));
+    }
+
     public static int getTimeoutMax() {
         return sTimeoutFiles.get(TIMEOUT);
+    }
+
+	public static int getChargeTimeoutMax() {
+        return sChargeTimeoutFiles.get(CHARGETIMEOUT);
     }
 
     public static boolean hasTimeout() {
@@ -178,6 +200,18 @@ public class Misc {
             }
         }
         return TIMEOUT != null;
+    }
+
+	public static boolean hasChargeTimeout() {
+        if (CHARGETIMEOUT == null) {
+            for (String file : sChargeTimeoutFiles.keySet()) {
+                if (Utils.existFile(file)) {
+                    CHARGETIMEOUT = file;
+                    return true;
+                }
+            }
+        }
+        return CHARGETIMEOUT != null;
     }
 
     public static void enablePocket(boolean enable, Context context) {
@@ -249,8 +283,8 @@ public class Misc {
     }
 
     public static boolean supported() {
-        return hasWake() || hasCamera() || hasPocket() || hasTimeout() || hasPowerKeySuspend()
-                || hasKeyPowerModeSMDK4412() || hasChargingModeSMDK4412() || hasVibration() || hasVibVibration();
+        return hasWake() || hasCamera() || hasPocket() || hasTimeout() || hasChargeTimeout()
+                || hasPowerKeySuspend() || hasKeyPowerModeSMDK4412() || hasChargingModeSMDK4412() || hasVibration() || hasVibVibration();
     }
 
     private static void run(String command, String id, Context context) {

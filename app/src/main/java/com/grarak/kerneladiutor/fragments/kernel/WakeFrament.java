@@ -80,6 +80,9 @@ public class WakeFrament extends RecyclerViewFragment {
         if (Misc.hasTimeout()) {
             timeoutInit(items);
         }
+        if (Misc.hasChargeTimeout()) {
+            chargetimeoutInit(items);
+        }
         if (Misc.hasPowerKeySuspend()) {
             powerKeySuspendInit(items);
         }
@@ -277,6 +280,31 @@ public class WakeFrament extends RecyclerViewFragment {
         });
 
         items.add(timeout);
+    }
+
+    private void chargetimeoutInit(List<RecyclerViewItem> items) {
+        List<String> list = new ArrayList<>();
+        list.add(getString(R.string.disabled));
+        for (int i = 1; i <= Misc.getChargeTimeoutMax(); i++)
+            list.add(i + getString(R.string.min));
+
+        SeekBarView chargetimeout = new SeekBarView();
+        chargetimeout.setTitle(getString(R.string.charge_timeout));
+        chargetimeout.setSummary(getString(R.string.charge_timeout_summary));
+        chargetimeout.setItems(list);
+        chargetimeout.setProgress(Misc.getChargeTimeout());
+        chargetimeout.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+            @Override
+            public void onStop(SeekBarView seekBarView, int position, String value) {
+                Misc.setChargeTimeout(position, getActivity());
+            }
+
+            @Override
+            public void onMove(SeekBarView seekBarView, int position, String value) {
+            }
+        });
+
+        items.add(chargetimeout);
     }
 
     private void powerKeySuspendInit(List<RecyclerViewItem> items) {
