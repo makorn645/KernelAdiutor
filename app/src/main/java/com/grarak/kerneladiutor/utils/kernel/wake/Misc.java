@@ -93,11 +93,11 @@ public class Misc {
     static {
         sTimeoutFiles.put(WAKE_TIMEOUT, 30);
         sTimeoutFiles.put(WAKE_TIMEOUT_2, 10);
-        sTimeoutFiles.put(T2W_TIMEOUT_SMDK4412, 60);
+        sTimeoutFiles.put(T2W_TIMEOUT_SMDK4412, 3600);
     }
 
 	static {
-        sChargeTimeoutFiles.put(T2W_CHARGE_TIMEOUT_SMDK4412, 60);
+        sChargeTimeoutFiles.put(T2W_CHARGE_TIMEOUT_SMDK4412, 3600);
     }
 
     private static String WAKE;

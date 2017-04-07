@@ -261,7 +261,7 @@ public class WakeFrament extends RecyclerViewFragment {
         List<String> list = new ArrayList<>();
         list.add(getString(R.string.disabled));
         for (int i = 1; i <= Misc.getTimeoutMax(); i++)
-            list.add(i + getString(R.string.min));
+            list.add(i + getString(R.string.sec));
 
         SeekBarView timeout = new SeekBarView();
         timeout.setTitle(getString(R.string.timeout));
@@ -286,7 +286,7 @@ public class WakeFrament extends RecyclerViewFragment {
         List<String> list = new ArrayList<>();
         list.add(getString(R.string.disabled));
         for (int i = 1; i <= Misc.getChargeTimeoutMax(); i++)
-            list.add(i + getString(R.string.min));
+            list.add(i + getString(R.string.sec));
 
         SeekBarView chargetimeout = new SeekBarView();
         chargetimeout.setTitle(getString(R.string.charge_timeout));

@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name">Kernel Adiutor</string>
+    <string name="app_name">Kernel Adiutor SMDK4412</string>
 
     <string name="checking_info">Checking info…</string>
     <string name="checking_root">Checking root access</string>
@@ -59,6 +59,7 @@
     <string name="mb">MB</string>
     <string name="ms">ms</string>
     <string name="mv">mV</string>
+    <string name="sec">sec</string>
     <string name="min">min</string>
     <string name="mah">mAh</string>
     <string name="ma">mA</string>
